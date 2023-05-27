@@ -23,7 +23,25 @@ export function activate(context: any) {
     }
   })
 
-  context.subscriptions.push(jsonifyDisposable)
+  const uppercaseDisposable = vscode.commands.registerTextEditorCommand('extension.uppercase', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+
+    try {
+      const uppercaseText = text.toUpperCase()
+      // 如果本身就是uppercase就直接返回
+      if (uppercaseText === text)
+        return
+      textEditor.edit(builder =>
+        builder.replace(selection, uppercaseText),
+      )
+    }
+    catch (error: any) {
+      return vscode.window.showErrorMessage(error.message)
+    }
+  })
+  context.subscriptions.push(jsonifyDisposable, uppercaseDisposable)
 }
 
 export function deactivate() {

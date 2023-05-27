@@ -37,8 +37,8 @@
     "menus": {
       "editor/context": [
         {
-          "when": "editorFocus && editorLangId !== typescript",
-          "command": "extension.ToUnocss",
+          "when": "editorHasSelection",
+          "command": "extension.uppercase",
           "group": "6_px"
         },
         {
@@ -52,6 +52,10 @@
       {
         "command": "extension.toJSON",
         "title": "jsonify"
+      },
+      {
+        "command": "extension.uppercase",
+        "title": "uppercase"
       }
     ]
   },
