@@ -8,6 +8,7 @@
 - line-height:20px;margin-top:20px -> {lineHeight:20px,marginTop:20px} convert hyphens to camel case
 - {name:'122'} -> {"name":"122"} JSON format
 - variable -> VARIABLE constants are all uppercase
+- VARIABLE -> variable constants are all lowercase
 
 ## :coffee:
 
