@@ -41,7 +41,39 @@ export function activate(context: any) {
       return vscode.window.showErrorMessage(error.message)
     }
   })
-  context.subscriptions.push(jsonifyDisposable, uppercaseDisposable)
+
+  const objToStringDisposable = vscode.commands.registerTextEditorCommand('extension.objToString', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+
+    const textObj = text.replace(/'/g, '"').replace(/[\n\t\s]/g, '').replace(/;/g, ',')
+
+    if (!/^{.*}$/.test(textObj))
+      return vscode.window.showErrorMessage('请选择一个这样格式的数据{}')
+    try {
+      const obj = toObj(`const variable = ${textObj}; return variable`)
+
+      const str = Object.keys(obj).reduce((result, key) => {
+        const value = obj[key]
+        // 将key转成hyphen
+        const hyphenKey = key.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
+        const pushValue = `${hyphenKey}:${value};`
+
+        return result
+          ? `${result}${pushValue}`
+          : `${pushValue}`
+      }, '')
+      textEditor.edit(builder =>
+        builder.replace(selection, str),
+      )
+    }
+    catch (error: any) {
+      return vscode.window.showErrorMessage(error.message)
+    }
+  })
+
+  context.subscriptions.push(jsonifyDisposable, uppercaseDisposable, objToStringDisposable)
 }
 
 export function deactivate() {
