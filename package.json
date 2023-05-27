@@ -60,8 +60,8 @@
     "test": "vitest",
     "build": "tsup src/index.ts --external vscode",
     "pack": "vsce package --no-dependencies",
-    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache",
-    "lint:fix": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache --fix",
+    "lint": "eslint --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache",
+    "lint:fix": "pnpm lint --fix",
     "publish": "vsce publish --no-dependencies",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm run publish"
