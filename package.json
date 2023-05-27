@@ -1,7 +1,7 @@
 {
   "publisher": "simonhe",
   "name": "vscode-transfer",
-  "displayName": "vscode-transfer",
+  "displayName": "vscode transfer",
   "version": "0.0.0",
   "packageManager": "pnpm@8.1.1",
   "description": "simple data transfer",
