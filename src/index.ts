@@ -42,7 +42,7 @@ export function activate(context: any) {
     }
   })
 
-  const objToStringDisposable = vscode.commands.registerTextEditorCommand('extension.objToString', async (textEditor) => {
+  const objToStringDisposable = vscode.commands.registerTextEditorCommand('extension.objToStr', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -73,7 +73,34 @@ export function activate(context: any) {
     }
   })
 
-  context.subscriptions.push(jsonifyDisposable, uppercaseDisposable, objToStringDisposable)
+  const stringToObjDisposable = vscode.commands.registerTextEditorCommand('extension.strToObj', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+
+    const textStr = text.replace(/'/g, '"').replace(/[\n\t\s]/g, '')
+
+    try {
+      const objStr = textStr.split(';').filter(Boolean).reduce((result, item) => {
+        const [key, value] = item.split(':')
+        // 将hyphen key转成camelize
+        const camelizeKey = key.replace(/-(\w)/g, (match, p1) => p1.toUpperCase())
+        const pushValue = `${camelizeKey}:'${value}',`
+        return result
+          ? `${result}${pushValue}`
+          : pushValue
+      }, '')
+
+      textEditor.edit(builder =>
+        builder.replace(selection, `{${objStr}}`),
+      )
+    }
+    catch (error: any) {
+      return vscode.window.showErrorMessage(error.message)
+    }
+  })
+
+  context.subscriptions.push(jsonifyDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
 }
 
 export function deactivate() {

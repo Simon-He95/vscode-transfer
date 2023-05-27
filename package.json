@@ -48,7 +48,12 @@
         },
         {
           "when": "editorHasSelection",
-          "command": "extension.objToString",
+          "command": "extension.objToStr",
+          "group": "6_px"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "extension.strToObj",
           "group": "6_px"
         }
       ]
@@ -63,9 +68,14 @@
         "title": "uppercase"
       },
       {
-        "command": "extension.objToString",
-        "title": "obj-to-string"
+        "command": "extension.objToStr",
+        "title": "obj-to-str"
+      },
+      {
+        "command": "extension.strToObj",
+        "title": "str-to-obj"
       }
+
     ]
   },
   "scripts": {
