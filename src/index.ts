@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 
 export function activate(context: any) {
-  const disposable = vscode.commands.registerTextEditorCommand('extension.toJSON', async (textEditor) => {
+  const jsonifyDisposable = vscode.commands.registerTextEditorCommand('extension.toJSON', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -22,7 +22,8 @@ export function activate(context: any) {
       return vscode.window.showErrorMessage(error.message)
     }
   })
-  context.subscriptions.push(disposable)
+
+  context.subscriptions.push(jsonifyDisposable)
 }
 
 export function deactivate() {
