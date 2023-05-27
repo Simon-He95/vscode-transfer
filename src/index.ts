@@ -42,6 +42,25 @@ export function activate(context: any) {
     }
   })
 
+  const lowercaseDisposable = vscode.commands.registerTextEditorCommand('extension.lowercase', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+
+    try {
+      const lowercaseText = text.toLowerCase()
+      // 如果本身就是uppercase就直接返回
+      if (lowercaseText === text)
+        return
+      textEditor.edit(builder =>
+        builder.replace(selection, lowercaseText),
+      )
+    }
+    catch (error: any) {
+      return vscode.window.showErrorMessage(error.message)
+    }
+  })
+
   const objToStringDisposable = vscode.commands.registerTextEditorCommand('extension.objToStr', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
@@ -100,7 +119,7 @@ export function activate(context: any) {
     }
   })
 
-  context.subscriptions.push(jsonifyDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
+  context.subscriptions.push(jsonifyDisposable, lowercaseDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
 }
 
 export function deactivate() {

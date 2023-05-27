@@ -43,6 +43,11 @@
         },
         {
           "when": "editorHasSelection",
+          "command": "extension.lowercase",
+          "group": "6_px"
+        },
+        {
+          "when": "editorHasSelection",
           "command": "extension.toJSON",
           "group": "6_px"
         },
@@ -66,6 +71,10 @@
       {
         "command": "extension.uppercase",
         "title": "uppercase"
+      },
+      {
+        "command": "extension.lowercase",
+        "title": "lowercase"
       },
       {
         "command": "extension.objToStr",
