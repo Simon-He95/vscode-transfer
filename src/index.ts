@@ -119,7 +119,16 @@ export function activate(context: any) {
     }
   })
 
-  context.subscriptions.push(jsonifyDisposable, lowercaseDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
+  const reverseDisposable = vscode.commands.registerTextEditorCommand('extension.reverse', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+    textEditor.edit(builder =>
+      builder.replace(selection, text.split('').reverse().join('')),
+    )
+  })
+
+  context.subscriptions.push(reverseDisposable, jsonifyDisposable, lowercaseDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
 }
 
 export function deactivate() {

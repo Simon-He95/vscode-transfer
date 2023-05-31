@@ -38,11 +38,6 @@
       "editor/context": [
         {
           "when": "editorHasSelection",
-          "command": "extension.uppercase",
-          "group": "6_px"
-        },
-        {
-          "when": "editorHasSelection",
           "command": "extension.lowercase",
           "group": "6_px"
         },
@@ -59,6 +54,11 @@
         {
           "when": "editorHasSelection",
           "command": "extension.strToObj",
+          "group": "6_px"
+        },
+        {
+          "when": "editorHasSelection",
+          "command": "extension.reverse",
           "group": "6_px"
         }
       ]
@@ -83,6 +83,10 @@
       {
         "command": "extension.strToObj",
         "title": "str-to-obj"
+      },
+      {
+        "command": "extension.reverse",
+        "title": "reverse"
       }
     ]
   },
