@@ -34,63 +34,63 @@
     "onStartupFinished"
   ],
   "contributes": {
+    "submenus": [
+      {
+        "id": "submenuId",
+        "label": "vscode transfer"
+      }
+    ],
     "menus": {
       "editor/context": [
         {
-          "when": "editorHasSelection",
-          "command": "extension.lowercase",
-          "group": "6_px"
+          "submenu": "submenuId",
+          "when": "editorHasSelection"
+        }
+      ],
+      "submenuId": [
+        {
+          "command": "transfer.toJSON"
         },
         {
-          "when": "editorHasSelection",
-          "command": "extension.uppercase",
-          "group": "6_px"
+          "command": "transfer.uppercase"
         },
         {
-          "when": "editorHasSelection",
-          "command": "extension.toJSON",
-          "group": "6_px"
+          "command": "transfer.lowercase"
         },
         {
-          "when": "editorHasSelection",
-          "command": "extension.objToStr",
-          "group": "6_px"
+          "command": "transfer.objToStr"
         },
         {
-          "when": "editorHasSelection",
-          "command": "extension.strToObj",
-          "group": "6_px"
+          "command": "transfer.strToObj"
         },
         {
-          "when": "editorHasSelection",
-          "command": "extension.reverse",
-          "group": "6_px"
+          "command": "transfer.reverse"
         }
       ]
     },
     "commands": [
       {
-        "command": "extension.toJSON",
+        "command": "transfer.toJSON",
         "title": "jsonify"
       },
       {
-        "command": "extension.uppercase",
+        "command": "transfer.uppercase",
         "title": "uppercase"
       },
       {
-        "command": "extension.lowercase",
+        "command": "transfer.lowercase",
         "title": "lowercase"
       },
       {
-        "command": "extension.objToStr",
+        "command": "transfer.objToStr",
         "title": "obj-to-str"
       },
       {
-        "command": "extension.strToObj",
+        "command": "transfer.strToObj",
         "title": "str-to-obj"
       },
       {
-        "command": "extension.reverse",
+        "command": "transfer.reverse",
         "title": "reverse"
       }
     ]

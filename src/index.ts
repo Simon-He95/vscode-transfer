@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 
 export function activate(context: any) {
-  const jsonifyDisposable = vscode.commands.registerTextEditorCommand('extension.toJSON', async (textEditor) => {
+  const jsonifyDisposable = vscode.commands.registerTextEditorCommand('transfer.toJSON', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -23,7 +23,7 @@ export function activate(context: any) {
     }
   })
 
-  const uppercaseDisposable = vscode.commands.registerTextEditorCommand('extension.uppercase', async (textEditor) => {
+  const uppercaseDisposable = vscode.commands.registerTextEditorCommand('transfer.uppercase', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -42,7 +42,7 @@ export function activate(context: any) {
     }
   })
 
-  const lowercaseDisposable = vscode.commands.registerTextEditorCommand('extension.lowercase', async (textEditor) => {
+  const lowercaseDisposable = vscode.commands.registerTextEditorCommand('transfer.lowercase', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -61,7 +61,7 @@ export function activate(context: any) {
     }
   })
 
-  const objToStringDisposable = vscode.commands.registerTextEditorCommand('extension.objToStr', async (textEditor) => {
+  const objToStringDisposable = vscode.commands.registerTextEditorCommand('transfer.objToStr', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -92,7 +92,7 @@ export function activate(context: any) {
     }
   })
 
-  const stringToObjDisposable = vscode.commands.registerTextEditorCommand('extension.strToObj', async (textEditor) => {
+  const stringToObjDisposable = vscode.commands.registerTextEditorCommand('transfer.strToObj', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
@@ -119,7 +119,7 @@ export function activate(context: any) {
     }
   })
 
-  const reverseDisposable = vscode.commands.registerTextEditorCommand('extension.reverse', async (textEditor) => {
+  const reverseDisposable = vscode.commands.registerTextEditorCommand('transfer.reverse', async (textEditor) => {
     const doc = textEditor.document
     const selection: vscode.Selection | vscode.Range = textEditor.selection
     const text = doc.getText(selection)
