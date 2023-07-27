@@ -36,14 +36,14 @@
   "contributes": {
     "submenus": [
       {
-        "id": "submenuId",
+        "id": "vscode-transfer",
         "label": "vscode transfer"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "submenu": "submenuId",
+          "submenu": "vscode-transfer",
           "when": "editorHasSelection"
         }
       ],
