@@ -44,7 +44,8 @@
       "editor/context": [
         {
           "submenu": "vscode-transfer",
-          "when": "editorHasSelection"
+          "when": "editorHasSelection",
+          "group": "6_px"
         }
       ],
       "vscode-transfer": [
@@ -65,33 +66,47 @@
         },
         {
           "command": "transfer.reverse"
+        },
+        {
+          "command": "transfer.camel"
+        },
+        {
+          "command": "transfer.hypen"
         }
       ]
     },
     "commands": [
       {
         "command": "transfer.toJSON",
-        "title": "jsonify"
+        "title": "jso格式化"
       },
       {
         "command": "transfer.uppercase",
-        "title": "uppercase"
+        "title": "转化为大写"
       },
       {
         "command": "transfer.lowercase",
-        "title": "lowercase"
+        "title": "转化为小写"
       },
       {
         "command": "transfer.objToStr",
-        "title": "obj-to-str"
+        "title": "对象转化为字符串"
       },
       {
         "command": "transfer.strToObj",
-        "title": "str-to-obj"
+        "title": "字符串转化为对象"
       },
       {
         "command": "transfer.reverse",
-        "title": "reverse"
+        "title": "字符串颠倒"
+      },
+      {
+        "command": "transfer.camel",
+        "title": "转化为驼峰命名"
+      },
+      {
+        "command": "transfer.hypen",
+        "title": "转换为连字符(-)"
       }
     ]
   },

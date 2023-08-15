@@ -128,7 +128,25 @@ export function activate(context: any) {
     )
   })
 
-  context.subscriptions.push(reverseDisposable, jsonifyDisposable, lowercaseDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
+  const camelDisposable = vscode.commands.registerTextEditorCommand('transfer.camel', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+    textEditor.edit(builder =>
+      builder.replace(selection, text.replace(/-(\w)/g, (_, v) => v.toUpperCase())),
+    )
+  })
+
+  const hypenDisposable = vscode.commands.registerTextEditorCommand('transfer.hypen', async (textEditor) => {
+    const doc = textEditor.document
+    const selection: vscode.Selection | vscode.Range = textEditor.selection
+    const text = doc.getText(selection)
+    textEditor.edit(builder =>
+      builder.replace(selection, text.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`)),
+    )
+  })
+
+  context.subscriptions.push(hypenDisposable, camelDisposable, reverseDisposable, jsonifyDisposable, lowercaseDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
 }
 
 export function deactivate() {
