@@ -78,7 +78,7 @@
     "commands": [
       {
         "command": "transfer.toJSON",
-        "title": "jso格式化"
+        "title": "json格式化"
       },
       {
         "command": "transfer.uppercase",
