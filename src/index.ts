@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import { updateText } from '@vscode-use/utils'
-import { toJSON } from './toJson'
+import { toJSON } from './toJSON'
 import { toObj } from './utils'
 
 export function activate(context: any) {
@@ -16,7 +16,7 @@ export function activate(context: any) {
       const json = toJSON(textObj)
       if (!json) return
       textEditor.edit(builder =>
-        builder.replace(selection, JSON.stringify(json)),
+        builder.replace(selection, json),
       )
     }
     catch (error: any) {
