@@ -24,9 +24,6 @@
   ],
   "main": "./dist/index.js",
   "icon": "icon.png",
-  "files": [
-    "dist"
-  ],
   "engines": {
     "vscode": "^1.77.0"
   },
@@ -71,7 +68,7 @@
           "command": "transfer.camel"
         },
         {
-          "command": "transfer.hypen"
+          "command": "transfer.hyphen"
         }
       ]
     },
@@ -105,7 +102,7 @@
         "title": "转化为驼峰命名"
       },
       {
-        "command": "transfer.hypen",
+        "command": "transfer.hyphen",
         "title": "转换为连字符(-)"
       }
     ]
@@ -115,26 +112,23 @@
     "test": "vitest",
     "build": "tsup src/index.ts --external vscode",
     "pack": "vsce package --no-dependencies",
-    "lint": "eslint --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache",
+    "lint": "eslint --cache",
     "lint:fix": "pnpm lint --fix",
     "publish": "vsce publish --no-dependencies",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm run publish"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.38.4",
+    "@antfu/eslint-config": "^3.14.0",
     "@types/node": "^18.15.11",
     "@types/vscode": "^1.77.0",
-    "@vscode-use/utils": "^0.0.35",
+    "@vscode-use/utils": "^0.1.40",
+    "@vscode/vsce": "^3.2.1",
     "bumpp": "^9.1.0",
-    "eslint": "^8.37.0",
-    "esno": "^0.16.3",
-    "pnpm": "^8.1.1",
+    "eslint": "^9.18.0",
     "rimraf": "^4.4.1",
     "tsup": "^6.7.0",
     "typescript": "^5.0.3",
-    "vite": "^4.2.1",
-    "vitest": "^0.29.8",
-    "vsce": "^2.15.0"
+    "vitest": "^0.29.8"
   }
 }

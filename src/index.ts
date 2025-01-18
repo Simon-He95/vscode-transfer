@@ -1,85 +1,79 @@
-import * as vscode from 'vscode'
-import { updateText } from '@vscode-use/utils'
+import { createExtension, getSelection, message, registerCommand, updateText } from '@vscode-use/utils'
 import { toJSON } from './toJSON'
 import { toObj } from './utils'
 
-export function activate(context: any) {
-  const jsonifyDisposable = vscode.commands.registerTextEditorCommand('transfer.toJSON', async (textEditor) => {
-    const doc = textEditor.document
-    const selection: vscode.Selection | vscode.Range = textEditor.selection
-    const text = doc.getText(selection)
-    const textObj = text.replace(/'/g, '"').replace(/[\n\t\s]/g, '')
+export = createExtension(() => {
+  registerCommand('transfer.toJSON', () => {
+    const selection = getSelection()!
+    const textObj = selection.selectedTextArray[0].replace(/'/g, '"').replace(/\s/g, '')
 
-    if (!/^{.*}$/.test(textObj))
-      return vscode.window.showErrorMessage('请选择一个这样格式的数据{}')
+    if (!/^\{.*\}$/.test(textObj))
+      return message.error('请选择一个这样格式的数据{}')
     try {
       const json = toJSON(textObj)
-      if (!json) return
-      textEditor.edit(builder =>
-        builder.replace(selection, json),
-      )
+      if (!json)
+        return
+      updateText((edit) => {
+        edit.replace(selection.selection, json)
+      })
     }
     catch (error: any) {
-      return vscode.window.showErrorMessage(error.message)
+      return message.error(error.message)
     }
   })
+  registerCommand('transfer.uppercase', () => {
+    const selection = getSelection()!
 
-  const uppercaseDisposable = vscode.commands.registerTextEditorCommand('transfer.uppercase', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
-
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
 
         try {
           const uppercaseText = text.toUpperCase()
           // 如果本身就是uppercase就直接返回
           if (uppercaseText === text)
             return
-          edit.replace(selection, uppercaseText)
+          edit.replace(selection.selection, uppercaseText)
         }
         catch (error: any) {
-          return vscode.window.showErrorMessage(error.message)
+          return message.error(error.message)
         }
       })
     })
   })
 
-  const lowercaseDisposable = vscode.commands.registerTextEditorCommand('transfer.lowercase', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
+  registerCommand('transfer.lowercase', () => {
+    const selection = getSelection()!
 
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
 
         try {
           const lowercaseText = text.toLowerCase()
-          // 如果本身就是uppercase就直接返回
+          // 如果本身就是lowercase就直接返回
           if (lowercaseText === text)
             return
-          edit.replace(selection, lowercaseText)
+          edit.replace(selection.selection, lowercaseText)
         }
         catch (error: any) {
-          return vscode.window.showErrorMessage(error.message)
+          return message.error(error.message)
         }
       })
     })
   })
 
-  const objToStringDisposable = vscode.commands.registerTextEditorCommand('transfer.objToStr', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
+  registerCommand('transfer.objToStr', () => {
+    const selection = getSelection()!
 
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
 
-        const textObj = text.replace(/'/g, '"').replace(/[\n\t\s]/g, '').replace(/;/g, ',')
+        const textObj = text.replace(/'/g, '"').replace(/\s/g, '').replace(/;/g, ',')
 
-        if (!/^{.*}$/.test(textObj))
-          return vscode.window.showErrorMessage('请选择一个这样格式的数据{}')
+        if (!/^\{.*\}$/.test(textObj))
+          return message.error('请选择一个这样格式的数据{}')
         try {
           const obj = toObj(`const variable = ${textObj}; return variable`)
 
@@ -93,28 +87,25 @@ export function activate(context: any) {
               ? `${result}${pushValue}`
               : `${pushValue}`
           }, '')
-          edit.replace(selection, str)
+          edit.replace(selection.selection, str)
         }
         catch (error: any) {
-          return vscode.window.showErrorMessage(error.message)
+          return message.error(error.message)
         }
       })
     })
   })
 
-  const stringToObjDisposable = vscode.commands.registerTextEditorCommand('transfer.strToObj', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
+  registerCommand('transfer.strToObj', () => {
+    const selection = getSelection()!
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
 
-
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
-
-        const textStr = text.replace(/'/g, '"').replace(/[\n\t\s]/g, '')
+        const textStr = text.replace(/'/g, '"').replace(/\s/g, '')
 
         try {
-          const objStr = textStr.split(';').filter(Boolean).reduce((result, item) => {
+          const objStr = textStr.split(';').filter(Boolean).reduce((result: string, item: string) => {
             const [key, value] = item.split(':')
             // 将hyphen key转成camelize
             const camelizeKey = key.replace(/-(\w)/g, (match, p1) => p1.toUpperCase())
@@ -124,51 +115,42 @@ export function activate(context: any) {
               : pushValue
           }, '')
 
-          edit.replace(selection, `{${objStr}}`)
+          edit.replace(selection.selection, `{${objStr}}`)
         }
         catch (error: any) {
-          return vscode.window.showErrorMessage(error.message)
+          return message.error(error.message)
         }
       })
     })
   })
 
-  const reverseDisposable = vscode.commands.registerTextEditorCommand('transfer.reverse', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
-        edit.replace(selection, text.split('').reverse().join(''))
+  registerCommand('transfer.reverse', () => {
+    const selection = getSelection()!
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
+        edit.replace(selection.selection, text.split('').reverse().join(''))
       })
     })
   })
 
-  const camelDisposable = vscode.commands.registerTextEditorCommand('transfer.camel', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
-        edit.replace(selection, text.replace(/-(\w)/g, (_, v) => v.toUpperCase()))
+  registerCommand('transfer.camel', () => {
+    const selection = getSelection()!
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
+        edit.replace(selection.selection, text.replace(/-(\w)/g, (_: string, v: string) => v.toUpperCase()))
       })
     })
   })
 
-  const hypenDisposable = vscode.commands.registerTextEditorCommand('transfer.hypen', async (textEditor) => {
-    const doc = textEditor.document
-    const selections: readonly vscode.Selection[] = textEditor.selections
-    updateText(edit => {
-      selections.forEach((selection) => {
-        const text = doc.getText(selection)
-        edit.replace(selection, text.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`))
+  registerCommand('transfer.hyphen', () => {
+    const selection = getSelection()!
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
+        edit.replace(selection.selection, text.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`))
       })
     })
   })
-
-  context.subscriptions.push(hypenDisposable, camelDisposable, reverseDisposable, jsonifyDisposable, lowercaseDisposable, uppercaseDisposable, objToStringDisposable, stringToObjDisposable)
-}
-
-export function deactivate() {
-
-}
+})
