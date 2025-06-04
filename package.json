@@ -1,10 +1,10 @@
 {
   "publisher": "simonhe",
   "name": "vscode-transfer",
-  "displayName": "vscode transfer",
+  "displayName": "VSCode Transfer - Content Transformation Extension",
   "version": "0.0.11",
   "packageManager": "pnpm@8.15.9",
-  "description": "simple data transfer",
+  "description": "A lightweight Visual Studio Code extension for quick content transformation, including JSON formatting, case conversion, and naming convention adjustments.",
   "author": "Simon He <https://github.com/Simon-He95>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/Simon-He95",
@@ -19,7 +19,21 @@
   "sponsor": {
     "url": "https://github.com/Simon-He95/sponsor"
   },
+  "keywords": [
+    "vscode",
+    "transfer",
+    "json",
+    "case conversion",
+    "camelCase",
+    "PascalCase",
+    "kebab-case",
+    "string manipulation",
+    "text transformation",
+    "developer tools",
+    "productivity"
+  ],
   "categories": [
+    "Formatters",
     "Other"
   ],
   "main": "./dist/index.js",
