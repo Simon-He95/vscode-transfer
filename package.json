@@ -3,7 +3,7 @@
   "name": "vscode-transfer",
   "displayName": "vscode transfer",
   "version": "0.0.10",
-  "packageManager": "pnpm@8.1.1",
+  "packageManager": "pnpm@8.15.9",
   "description": "simple data transfer",
   "author": "Simon He <https://github.com/Simon-He95>",
   "license": "MIT",
@@ -102,8 +102,16 @@
         "title": "转化为驼峰命名"
       },
       {
+        "command": "transfer.bigCamel",
+        "title": "转化为大驼峰命名"
+      },
+      {
         "command": "transfer.hyphen",
         "title": "转换为连字符(-)"
+      },
+      {
+        "command": "transfer.transfer",
+        "title": "唤起 vscode-transfer"
       }
     ]
   },
@@ -119,16 +127,16 @@
     "release": "bumpp && pnpm run publish"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.14.0",
-    "@types/node": "^18.15.11",
-    "@types/vscode": "^1.77.0",
-    "@vscode-use/utils": "^0.1.40",
-    "@vscode/vsce": "^3.2.1",
-    "bumpp": "^9.1.0",
-    "eslint": "^9.18.0",
+    "@antfu/eslint-config": "^3.16.0",
+    "@types/node": "^18.19.110",
+    "@types/vscode": "1.77.0",
+    "@vscode-use/utils": "^0.1.58",
+    "@vscode/vsce": "^3.4.2",
+    "bumpp": "^9.11.1",
+    "eslint": "^9.28.0",
     "rimraf": "^4.4.1",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.3",
+    "typescript": "^5.8.3",
     "vitest": "^0.29.8"
   }
 }

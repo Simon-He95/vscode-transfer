@@ -1,8 +1,53 @@
-import { createExtension, getSelection, message, registerCommand, updateText } from '@vscode-use/utils'
+import { createExtension, createSelect, executeCommand, getSelection, message, registerCommand, updateText } from '@vscode-use/utils'
 import { toJSON } from './toJSON'
 import { toObj } from './utils'
 
 export = createExtension(() => {
+  registerCommand('transfer.transfer', async () => {
+    const select = await createSelect([
+      {
+        label: 'toJSON',
+        description: 'json格式化',
+      },
+      {
+        label: 'uppercase',
+        description: '转换为大写',
+      },
+      {
+        label: 'lowercase',
+        description: '转换为小写',
+      },
+      {
+        label: 'objToStr',
+        description: '对象转字符串',
+      },
+      {
+        label: 'strToObj',
+        description: '字符串转对象',
+      },
+      {
+        label: 'reverse',
+        description: '反转字符串',
+      },
+      {
+        label: 'camel',
+        description: '转驼峰',
+      },
+      {
+        label: 'bigCamel',
+        description: '转大驼峰',
+      },
+      {
+        label: 'hyphen',
+        description: '驼峰转连字符',
+      },
+    ])
+    if (!select)
+      return
+    const command = `transfer.${select}`
+    // 触发这个命令
+    executeCommand(command)
+  })
   registerCommand('transfer.toJSON', () => {
     const selection = getSelection()!
     const textObj = selection.selectedTextArray[0].replace(/'/g, '"').replace(/\s/g, '')
@@ -140,6 +185,16 @@ export = createExtension(() => {
       selection.selectionArray.forEach((selection) => {
         const text = selection.text
         edit.replace(selection.selection, text.replace(/-(\w)/g, (_: string, v: string) => v.toUpperCase()))
+      })
+    })
+  })
+
+  registerCommand('transfer.bigCamel', () => {
+    const selection = getSelection()!
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const text = selection.text
+        edit.replace(selection.selection, text[0].toLocaleUpperCase() + text.slice(1).replace(/-(\w)/g, (_: string, v: string) => v.toUpperCase()))
       })
     })
   })
