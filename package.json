@@ -125,7 +125,8 @@
       },
       {
         "command": "transfer.transfer",
-        "title": "唤起 vscode-transfer"
+        "title": "唤起 vscode-transfer",
+        "when": "editorHasSelection"
       }
     ]
   },
