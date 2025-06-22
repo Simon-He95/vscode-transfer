@@ -14,6 +14,7 @@
 - **Object and String Conversion**: Seamlessly switch between objects and strings.
 - **String Manipulation**: Reverse strings with a single command.
 - **Naming Conventions**: Transform text into camelCase, PascalCase, or kebab-case.
+- **Path Conversion**: Convert absolute paths to relative paths based on current file location.
 - **Quick Access Menu**: Access all transformations through a convenient VS Code menu.
 
 ## Available Commands
@@ -34,6 +35,8 @@ Here’s a list of all supported commands:
   - `transfer.camel`: Converts text to camelCase.
   - `transfer.bigCamel`: Converts text to PascalCase (Big Camel Case).
   - `transfer.hyphen`: Converts text to kebab-case (hyphen-separated).
+- **Path Conversion**
+  - `transfer.toRelativePath`: Converts absolute paths to relative paths based on current file location.
 - **Quick Access**
   - `transfer.transfer`: Opens the VS Code transfer menu for quick transformations.
 
