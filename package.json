@@ -2,7 +2,7 @@
   "publisher": "simonhe",
   "name": "vscode-transfer",
   "displayName": "VSCode Transfer - Content Transformation Extension",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "packageManager": "pnpm@8.15.9",
   "description": "A lightweight Visual Studio Code extension for quick content transformation, including JSON formatting, case conversion, and naming convention adjustments.",
   "author": "Simon He <https://github.com/Simon-He95>",
