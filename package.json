@@ -61,28 +61,40 @@
       ],
       "vscode-transfer": [
         {
-          "command": "transfer.toJSON"
+          "command": "transfer.toJSON",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.uppercase"
+          "command": "transfer.uppercase",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.lowercase"
+          "command": "transfer.lowercase",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.objToStr"
+          "command": "transfer.objToStr",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.strToObj"
+          "command": "transfer.strToObj",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.reverse"
+          "command": "transfer.reverse",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.camel"
+          "command": "transfer.camel",
+          "when": "editorHasSelection"
         },
         {
-          "command": "transfer.hyphen"
+          "command": "transfer.hyphen",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "transfer.toRelativePath",
+          "when": "editorHasSelection"
         }
       ]
     },
@@ -124,6 +136,10 @@
         "title": "转换为连字符(-)"
       },
       {
+        "command": "transfer.toRelativePath",
+        "title": "转换为相对路径"
+      },
+      {
         "command": "transfer.transfer",
         "title": "唤起 vscode-transfer",
         "when": "editorHasSelection"
@@ -143,12 +159,12 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.16.0",
-    "@types/node": "^18.19.110",
+    "@types/node": "^18.19.112",
     "@types/vscode": "1.77.0",
-    "@vscode-use/utils": "^0.1.58",
-    "@vscode/vsce": "^3.4.2",
+    "@vscode-use/utils": "^0.1.59",
+    "@vscode/vsce": "^3.5.0",
     "bumpp": "^9.11.1",
-    "eslint": "^9.28.0",
+    "eslint": "^9.29.0",
     "rimraf": "^4.4.1",
     "tsup": "^6.7.0",
     "typescript": "^5.8.3",

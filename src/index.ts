@@ -1,6 +1,7 @@
-import { createExtension, createSelect, executeCommand, getSelection, message, registerCommand, updateText } from '@vscode-use/utils'
+import { createExtension, createSelect, executeCommand, getSelection, message, registerCommand, updateText, getActiveTextEditor } from '@vscode-use/utils'
 import { toJSON } from './toJSON'
 import { toObj } from './utils'
+import * as path from 'path'
 
 export = createExtension(() => {
   registerCommand('transfer.transfer', async () => {
@@ -40,6 +41,10 @@ export = createExtension(() => {
       {
         label: 'hyphen',
         description: '驼峰转连字符',
+      },
+      {
+        label: 'toRelativePath',
+        description: '转换为相对路径',
       },
     ])
     if (!select)
@@ -205,6 +210,42 @@ export = createExtension(() => {
       selection.selectionArray.forEach((selection) => {
         const text = selection.text
         edit.replace(selection.selection, text.replace(/([A-Z])/g, v => `-${v.toLowerCase()}`))
+      })
+    })
+  })
+
+  registerCommand('transfer.toRelativePath', () => {
+    const selection = getSelection()!
+    const activeEditor = getActiveTextEditor()
+    
+    if (!activeEditor) {
+      return message.error('没有活动的编辑器')
+    }
+
+    const currentFilePath = activeEditor.document.uri.fsPath
+    const currentDir = path.dirname(currentFilePath)
+
+    updateText((edit) => {
+      selection.selectionArray.forEach((selection) => {
+        const selectedPath = selection.text.trim()
+        
+        try {
+          // 检查是否是绝对路径
+          if (!path.isAbsolute(selectedPath)) {
+            return message.error('选中的文本不是绝对路径')
+          }
+
+          // 计算相对路径
+          const relativePath = path.relative(currentDir, selectedPath)
+          
+          // 如果相对路径不以 . 开头，则添加 ./
+          const finalPath = relativePath.startsWith('.') ? relativePath : `./${relativePath}`
+          
+          edit.replace(selection.selection, finalPath)
+        }
+        catch (error: any) {
+          return message.error(`转换路径失败: ${error.message}`)
+        }
       })
     })
   })
